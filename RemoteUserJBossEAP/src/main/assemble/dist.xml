@@ -1,0 +1,26 @@
+<assembly>
+  <id>CreateJBossModule</id>
+  <formats>
+   <format>dir</format>
+   <format>zip</format>
+  </formats>
+  <includeBaseDirectory>false</includeBaseDirectory>
+  <fileSets>
+   <fileSet>
+      <directory>${basedir}/target/</directory>
+      <outputDirectory>/RemoteUserAuth/main</outputDirectory>
+      <includes>
+        <include>${project.artifactId}-${project.version}.${project.packaging}</include>
+      </includes>
+   </fileSet>
+   <fileSet>
+      <directory>${basedir}</directory>
+      <!-- outputDirectory>/${project.artifactId}/${project.version}</outputDirectory-->
+      <outputDirectory>/RemoteUserAuth/main</outputDirectory>
+      <filtered>true</filtered>
+      <includes>
+        <include>module.xml</include>
+      </includes>
+    </fileSet>
+  </fileSets>
+</assembly>

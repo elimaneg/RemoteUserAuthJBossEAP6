@@ -1,0 +1,45 @@
+<jboss-web>
+  <valve>
+    <class-name>org.jboss.security.negotiation.NegotiationAuthenticator</class-name>
+  </valve>
+</jboss-web>
+
+<jboss-web>
+  <valve>
+    <class-name>org.jboss.as.web.security.GenericHeaderAuthenticator</class-name>
+    <param>
+      <param-name>httpHeaderForSSOAuth</param-name>
+      <param-value>sm_ssoid,ct-remote-user,HTTP_OBLIX_UID</param-value>
+    </param>
+    <param>
+      <param-name>sessionCookieForSSOAuth</param-name>
+      <param-value>SMSESSION,CTSESSION,ObSSOCookie</param-value>
+    </param>
+  </valve>
+</jboss-web>
+
+This example shows how to set custom attributes on your valve. 
+The authenticator checks for the presence of the header ID and the session key,
+and passes them into the JAAS framework which drives the security layer, as the username 
+and password value. You need a custom JAAS login module which can process the username and password 
+and populate the subject with the correct roles. If no header values match the configured values, regular 
+form-based authentication semantics apply.
+
+<jboss-web>
+  <valve>
+    <class-name>org.ege.jbosseap6.HTTPHeaderAuthenticator</class-name>
+    <param>
+      <param-name>X-Forwarded-User</param-name>
+      <param-value>sm_ssoid,ct-remote-user,HTTP_OBLIX_UID</param-value>
+    </param>
+    <param>
+      <param-name>sessionCookieForSSOAuth</param-name>
+      <param-value>SMSESSION,CTSESSION,ObSSOCookie</param-value>
+    </param>
+  </valve>
+</jboss-web>
+Authenticators.properties
+
+HTTPHeader=org.ege.jbosseap6.HTTPHeaderAuthenticator
+
+
